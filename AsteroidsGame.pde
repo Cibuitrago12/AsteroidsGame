@@ -1,5 +1,6 @@
 Spaceship falcon = new Spaceship();
 Star[] galaxy;
+boolean accel = false;
 public void setup() 
 {
   size(600, 600);
@@ -18,7 +19,8 @@ public void keyPressed()
      background(0);
   }
   if(key == 'w'){
-     falcon.accelerate(0.4);
+     falcon.accelerate(0.2);
+     accel = true;
      
   }
   if(key == 'a'){
@@ -33,10 +35,13 @@ public void keyPressed()
 public void draw() 
 {
   background(0);
+  if(keyPressed == false){
+    accel = false;
+  }
   for(int i = 0; i < galaxy.length; i++){
      galaxy[i].show(); 
   }
   falcon.move();
-  falcon.show();
+  falcon.show(accel);
   
 }

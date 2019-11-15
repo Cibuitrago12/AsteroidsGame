@@ -30,9 +30,39 @@ class Spaceship extends Floater
        myPointDirection = (double)(Math.random() * 360);
     }
     
-    public void accelerate()
+    public void show(boolean accel)
     {
-      
-      
+       fill(myColor);   
+       stroke(myColor);    
+       strokeWeight(1); 
+       //translate the (x,y) center of the ship to the correct position
+       translate((float)myCenterX, (float)myCenterY);
+    
+       //convert degrees to radians for rotate()     
+       float dRadians = (float)(myPointDirection*(Math.PI/180));
+        
+       //rotate so that the polygon will be drawn in the correct direction
+       rotate(dRadians);
+        
+       //draw the polygon
+       beginShape();
+       for (int nI = 0; nI < corners; nI++)
+       {
+         vertex(xCorners[nI], yCorners[nI]);
+       }
+       endShape(CLOSE);
+        
+       if(accel){
+         stroke(205);
+         strokeWeight(2);
+         line(-14, -6, -24, -12); 
+         line(-14, 0, -24, 0);
+         line(-14, 6, -24, 12); 
+       }
+
+   
+       //"unrotate" and "untranslate" in reverse order
+       rotate(-1*dRadians);
+       translate(-1*(float)myCenterX, -1*(float)myCenterY);
     }
 }
