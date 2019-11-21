@@ -1,5 +1,6 @@
 Spaceship falcon = new Spaceship();
 Star[] galaxy;
+AsteroidClass[] asteroids;
 boolean accel = false;
 public void setup() 
 {
@@ -9,6 +10,10 @@ public void setup()
   galaxy = new Star[500];
   for(int i = 0; i < galaxy.length; i++){
      galaxy[i] = new Star();
+  }
+  asteroids = new AsteroidClass[7];
+  for(int i = 0; i < asteroids.length; i++){
+      asteroids[i] = new AsteroidClass();
   }
 }
 
@@ -40,6 +45,10 @@ public void draw()
   }
   for(int i = 0; i < galaxy.length; i++){
      galaxy[i].show(); 
+  }
+  for(int i = 0; i < asteroids.length; i++){
+      asteroids[i].show();
+      asteroids[i].move();
   }
   falcon.move();
   falcon.show(accel);
