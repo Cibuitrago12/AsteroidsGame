@@ -53,7 +53,7 @@ public void draw()
       asteroids.get(i).move();
   }
   if(get((int)falcon.getX(), (int)falcon.getY()) != color(255, 30, 50)){
-    shipHP-= 1000;
+    shipHP-= 5;
   }
   
   
