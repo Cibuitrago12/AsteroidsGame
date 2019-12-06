@@ -1,6 +1,7 @@
 Spaceship falcon = new Spaceship();
 Star[] galaxy;
 ArrayList <AsteroidClass> asteroids = new ArrayList <AsteroidClass>();
+ArrayList <Bullet> lazars = new ArrayList <Bullet>();
 boolean accel = false;
 int shipHP = 1000;
 public void setup() 
@@ -12,7 +13,7 @@ public void setup()
   for(int i = 0; i < galaxy.length; i++){
      galaxy[i] = new Star();
   }
-  for(int i = 0; i < 10; i++){
+  for(int i = 0; i < 15; i++){
       asteroids.add(new AsteroidClass());
   }
 }
@@ -34,6 +35,10 @@ public void keyPressed()
   if(key == 'd'){
     falcon.turn(10);
   }
+  if(key == ' '){
+    Bullet lazar = new Bullet(falcon);
+    lazars.add(lazar);
+  }
   
   
 }
@@ -43,19 +48,26 @@ public void draw()
   if(keyPressed == false){
     accel = false;
   }
+
   for(int i = 0; i < galaxy.length; i++){
      galaxy[i].show(); 
   }
+  for(int i = 0; i < lazars.size(); i++){
+    Bullet temp = lazars.get(i);
+    temp.show();
+    temp.move();
+  }
   falcon.move();
   falcon.show(accel);
-  for(int i = 0; i < asteroids.size(); i++){
+  for(int i = 0; i < asteroids.size(); i++){ 
       asteroids.get(i).show();
       asteroids.get(i).move();
   }
   if(get((int)falcon.getX(), (int)falcon.getY()) != color(255, 30, 50)){
-    shipHP-= 5;
+     shipHP-= 5;
   }
-  
+ 
+ 
   
   
   noFill();
@@ -80,4 +92,13 @@ public void draw()
     textSize(25);
     text("Refresh to restart", 135, 350);
   }
+}
+
+public boolean checkHit(Bullet a){
+  if(get((int)a.getX(), (int)a.getY()) != color(0, 200, 200) || get((int)a.getX(), (int)a.getY()) != color(255, 30, 50)){
+    return true;
+  }
+  return false;
+  
+  
 }
