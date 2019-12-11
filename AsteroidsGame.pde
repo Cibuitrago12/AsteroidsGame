@@ -14,7 +14,7 @@ public void setup()
   for(int i = 0; i < galaxy.length; i++){
      galaxy[i] = new Star();
   }
-  for(int i = 0; i < 20; i++){
+  for(int i = 0; i < 40; i++){
       asteroids.add(new AsteroidClass());
   }
 }
@@ -69,13 +69,12 @@ public void draw()
           asteroids.remove(i);
           lazars.remove(x);
           score += 300;
-          i--;
-          x--;
+          break;
         }
       }
   }
   if(get((int)falcon.getX(), (int)falcon.getY()) != color(255, 30, 50)){
-     shipHP-= 5;
+     shipHP-= 7;
      score -= 27;
   }
  
@@ -101,7 +100,7 @@ public void draw()
     background(0);
     fill(200, 0,0);
     textSize(40);
-    text("You win!", 135, 275);
+    text("You win! :)", 135, 275);
     textSize(30);
     text("High Score: " + score, 135, 325);
     textSize(25);
