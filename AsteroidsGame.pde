@@ -4,6 +4,7 @@ ArrayList <AsteroidClass> asteroids = new ArrayList <AsteroidClass>();
 ArrayList <Bullet> lazars = new ArrayList <Bullet>();
 boolean accel = false;
 int shipHP = 1000;
+int score = 0;
 public void setup() 
 {
   size(600, 600);
@@ -13,7 +14,7 @@ public void setup()
   for(int i = 0; i < galaxy.length; i++){
      galaxy[i] = new Star();
   }
-  for(int i = 0; i < 15; i++){
+  for(int i = 0; i < 20; i++){
       asteroids.add(new AsteroidClass());
   }
 }
@@ -62,9 +63,20 @@ public void draw()
   for(int i = 0; i < asteroids.size(); i++){ 
       asteroids.get(i).show();
       asteroids.get(i).move();
+      for(int x = 0; x < lazars.size(); x++){
+        Bullet temp = lazars.get(x); 
+        if(dist((float)temp.getX(), (float)temp.getY(), (float)asteroids.get(i).getX(), (float)asteroids.get(i).getY()) < 15){
+          asteroids.remove(i);
+          lazars.remove(x);
+          score += 300;
+          i--;
+          x--;
+        }
+      }
   }
   if(get((int)falcon.getX(), (int)falcon.getY()) != color(255, 30, 50)){
      shipHP-= 5;
+     score -= 27;
   }
  
  
@@ -82,15 +94,30 @@ public void draw()
   text("Ship HP: " + shipHP, 25, 25);
   
   
+  text("Score: " + score, 450, 25);
+  
+  if(asteroids.size() == 0){
+    noLoop();
+    background(0);
+    fill(200, 0,0);
+    textSize(40);
+    text("You win!", 135, 275);
+    textSize(30);
+    text("High Score: " + score, 135, 325);
+    textSize(25);
+    text("Refresh to restart", 135, 375);
+  }
   
   if(shipHP <= 0){
     noLoop();
     background(0);
     fill(200, 0,0);
     textSize(40);
-    text("Game Over :(", 135, 300);
+    text("Game Over :(", 135, 275);
+    textSize(30);
+    text("High Score: " + score, 135, 325);
     textSize(25);
-    text("Refresh to restart", 135, 350);
+    text("Refresh to restart", 135, 375);
   }
 }
 
